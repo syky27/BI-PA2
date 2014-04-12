@@ -109,6 +109,8 @@ class CAccount
 {
 public:
     CAccount(const char * accID, int initialBalance);
+    CAccount();
+    
     ~CAccount();
 private:
     const char *accID;
@@ -123,6 +125,11 @@ CAccount::CAccount(const char * accID, int initialBalance){
     this->balance = balance;
 
 }
+
+CAccount::~CAccount() {
+
+}
+
 
 
 class CBank
@@ -155,6 +162,10 @@ bool CBank::NewAccount(const char *accID, int initialBalance){
     this->accounts.add(temp);
 
 }
+
+
+
+
 
 
 
