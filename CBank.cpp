@@ -122,7 +122,10 @@ private:
 
 CAccount::CAccount(const char * accID, int initialBalance){
     this->accID = accID;
-    this->balance = balance;
+    this->balance = initialBalance;
+}
+
+CAccount::CAccount(){
 
 }
 
@@ -143,27 +146,42 @@ class CBank
     bool NewAccount  (const char *accID, int initialBalance);
     bool Transaction (const char *debAccID, const char *credAccID, int amount, const char * signature);
     bool TrimAccount (const char *accID);
+    bool addAccount (const CAccount account);
     // Account ( accID )
    private:
     AFP<CAccount> accounts;
 
  };
 
-/*
+
 CBank::CBank(){
-    accounts = new AFP;
+    // accounts = new AFP ;
 }
-*/
+
+bool CBank::addAccount(const CAccount account){
+	this -> accounts.add (account);
+
+	return true;
+}
 
 bool CBank::NewAccount(const char *accID, int initialBalance){
    
     
     CAccount temp = CAccount(accID, initialBalance);
     this->accounts.add(temp);
-
+    return true;
 }
 
 
+bool CBank::Transaction (const char *debAccID, const char *credAccID, int amount, const char * signature){
+
+	return true;
+}
+
+bool CBank::TrimAccount (const char *accID){
+
+	return true;
+}
 
 
 
@@ -187,6 +205,7 @@ bool CBank::NewAccount(const char *accID, int initialBalance){
     status = a . NewAccount ( "111111", 5000 );
      // status = true
     status = a . Transaction ( "111111", "987654", 290, "Okh6e+8rAiuT5=" );
+    printf("end\n");
      // status = true
 //    balance = a . Account ( "123456" ). Balance ( );
 //     // balance = -2190
