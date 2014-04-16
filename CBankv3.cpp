@@ -1,21 +1,22 @@
-//#ifndef __PROGTEST__
+#ifndef __PROGTEST__
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <assert.h>
 using namespace std;
-//#endif /* __PROGTEST__ */
+#endif /* __PROGTEST__ */
+
 
 
 class BetterString
 {
 private:
-    char*   data;
+	char*	data;
     int     length;
     
 public:
-    BetterString();
+	BetterString();
     BetterString(const char* cString);
     ~BetterString();
     BetterString(const BetterString& s);
@@ -27,112 +28,105 @@ public:
     friend ostream& operator<<(ostream& os, const BetterString& s);
     
 private:
-    void copy(const BetterString& s);
+	void copy(const BetterString& s);
 };
 
 BetterString::BetterString()
 {
-    length = 0;
-    data = NULL;
+	length = 0;
+	data = NULL;
 }
 
 BetterString::BetterString(const char* cString)
 {
-    length = 0;
-    while (cString[length] != '\0')
-    {
-        length++;
-    }
-    data = new char[length + 1];
-    for (int i = 0; i < length; i++)
-    {
-        data[i] = cString[i];
-    }
-    data[length] = '\0';
+	length = 0;
+	while (cString[length] != '\0')
+	{
+		length++;
+	}
+	data = new char[length + 1];
+	for (int i = 0; i < length; i++)
+	{
+		data[i] = cString[i];
+	}
+	data[length] = '\0';
 }
 
 BetterString::~BetterString()
 {
-    delete [] data;
-    data = NULL;
-    length = 0;
+	delete [] data;
+	data = NULL;
+	length = 0;
 }
 
 BetterString::BetterString(const BetterString& s)
 {
-    copy(s);
+	copy(s);
 }
 
 BetterString BetterString::operator=(const BetterString& s)
 {
-    delete [] data;
-    copy(s);
-    return *this;
+	delete [] data;
+	copy(s);
+	return *this;
 }
 
 BetterString BetterString::operator=(const char* cString)
 {
-    delete [] data;
-    BetterString temp(cString);
-    return temp;
+	delete [] data;
+	BetterString temp(cString);
+	return temp;
 }
 
 void BetterString::copy(const BetterString& s)
 {
-    length = s.length;
-    data = new char[length + 1];
-    for (int i = 0; i < length; i++)
-    {
-        data[i] = s.data[i];
-    }
-    data[length] = '\0';
+	length = s.length;
+	data = new char[length + 1];
+	for (int i = 0; i < length; i++)
+	{
+		data[i] = s.data[i];
+	}
+	data[length] = '\0';
 }
 
 void BetterString::put()
 {
-    for (int i = 0; i < length; i++)
-    {
-        cout << data[i];
-    }
+	for (int i = 0; i < length; i++)
+	{
+		cout << data[i];
+	}
 }
-
-
-
-
-
-
-
 
 
 ostream& operator<<(ostream& os, const BetterString& s)
 {
-    for (int i = 0; i < s.length; i++)
-    {
-        os << s.data[i];
-    }
-    return os;
+	for (int i = 0; i < s.length; i++)
+	{
+		os << s.data[i];
+	}
+	return os;
 }
 
 struct transaction
 {
-    int value;
-    BetterString from;
-    BetterString sign;
+	int value;
+	BetterString from;
+	BetterString sign;
     
-    transaction(int Xvalue, const char * Xfrom, const char * Xsign){
-        value = Xvalue;
-        BetterString tmp (Xfrom);
-        BetterString tmp2 (Xsign);
-        from = tmp;
-        sign = tmp2;
-    }
+	transaction(int Xvalue, const char * Xfrom, const char * Xsign){
+		value = Xvalue;
+		BetterString tmp (Xfrom);
+		BetterString tmp2 (Xsign);
+		from = tmp;
+		sign = tmp2;
+	}
     
     
     transaction(int Xvalue, BetterString Xfrom, BetterString Xsign){
-        value = Xvalue;
-        from = Xfrom;
-        sign = Xsign;
-    }
+		value = Xvalue;
+		from = Xfrom;
+		sign = Xsign;
+	}
     
     transaction(transaction & trans){
         this->value = trans.value;
@@ -145,16 +139,24 @@ struct transaction
 class CAccount
 {
 public:
-    CAccount();
+	CAccount();
     CAccount(CAccount & account);
-    CAccount(const char *accID, int initialBalance);
-    ~CAccount();
+	CAccount(const char *accID, int initialBalance);
+	~CAccount();
     void pushToLog(int balanceChange, BetterString account, BetterString signature);
-    void resizeLog();
+	void resizeLog();
     const char getID();
     int Balance();
     
     friend ostream& operator<<(ostream &out, const CAccount & account){
+        
+        //    ---8<---8<---8<---8<---8<---8<---8<---
+        //    111111:
+        //    5000
+        //    - 290, to: 987654, sign: Okh6e+8rAiuT5=
+        //    = 4710
+        //    ---8<---8<---8<---8<---8<---8<---8<---
+        
         out << account.id << ":"<<  endl;
         if ( account.transactions[0]->value < 0)
         {
@@ -164,7 +166,7 @@ public:
         }
         int finalBalance = account.transactions[0]->value;
         int actual;
-        for(unsigned i = 1; i < account.realSizeOfLog ; i++) {
+        for(unsigned i = 1; i < account.realSizeOfLog; i++) {
             
             actual = account.transactions[i] -> value;
             finalBalance += actual;
@@ -174,44 +176,34 @@ public:
             } else {
                 out << "+ " << actual << ", from: " << account.transactions[i] -> from << ", sign: " << account.transactions[i] -> sign << endl;
             }
-          
+            
+            //            out << actual << ", to:" << account.transactions[i] -> from << ", sign: " << account.transactions[i] -> sign << endl;
         }
         out << "= " << finalBalance << endl;
         return out;
     }
     
     
-    // const char id;
-    char * id;
-    
-    //    MyString id;
-    
+	
+	char * id;
     int balance;
-    // int ** log;
-    transaction ** transactions;
-    
-    unsigned int sizeOfLog;
-    unsigned int realSizeOfLog;
+	transaction ** transactions;
+	unsigned int sizeOfLog;
+	unsigned int realSizeOfLog;
 };
 
 CAccount::CAccount(CAccount & account){
-    // this->id = account.id;
     
-    size_t len = strlen ( account.id );
-    
-    this->id = new char[len + 1];
-    strncpy ( this->id, account.id, len );
-    
-    this->id[len] = '\0';
-
-
-    
+    this->id = account.id;
     this-> sizeOfLog = account.sizeOfLog;
     this->realSizeOfLog = account.realSizeOfLog;
     transactions = new transaction * [sizeOfLog];
-    for(unsigned i = 0; i < realSizeOfLog; i++) {
-        transactions[i] = new transaction(*account.transactions[i]);
-    }
+	for(unsigned i = 0; i < realSizeOfLog; i++) {
+		transactions[i] = new transaction(*account.transactions[i]);
+	}
+	for (unsigned  i = realSizeOfLog; i < sizeOfLog; i++){
+		transactions[i] = NULL;
+	}
     
     
 }
@@ -230,18 +222,18 @@ int CAccount::Balance(){
 
 
 CAccount::CAccount(){
-    sizeOfLog = 20;
-    realSizeOfLog = 0;
-    // log = new int *[sizeOfLog];
-    transactions = new transaction * [sizeOfLog];
+	sizeOfLog = 20;
+	realSizeOfLog = 0;
+	// log = new int *[sizeOfLog];
+	transactions = new transaction * [sizeOfLog];
     
-    // for(unsigned i = 0; i < sizeOfLog; i++) {
-    //  log[i] = NULL;
-    // }
+	// for(unsigned i = 0; i < sizeOfLog; i++) {
+	// 	log[i] = NULL;
+	// }
     
-    for(unsigned i = 0; i < sizeOfLog; i++) {
-        transactions[i] = NULL;
-    }
+	for(unsigned i = 0; i < sizeOfLog; i++) {
+		transactions[i] = NULL;
+	}
 }
 
 CAccount::CAccount(const char * accID, int initialBalance){
@@ -261,33 +253,28 @@ CAccount::CAccount(const char * accID, int initialBalance){
     //    strncpy(this ->  id , accID, sizeof(*accID));
     //    t1->name[NAMESIZE] = '\0';
     
-    //  this -> id = new ((const char *) accID);
+    //	this -> id = new ((const char *) accID);
     //    this -> id = new char[strlen(accID) + 1];
     //   strcpy (this->id, accID);
     
     
-    //  CAccount();
-    pushToLog(initialBalance, "x", "x");
+    //	CAccount();
+	pushToLog(initialBalance, "x", "x");
 }
 
 CAccount::~CAccount(){
-    
-    
-    
-        for(unsigned i = 0; i < sizeOfLog; i++) {
-            delete transactions[i];
-        }
-    
-       delete [] transactions;
-    
-    
-    
+    for(unsigned i = 0; i < sizeOfLog; i++) {
+    	delete transactions[i];
+    }
+    delete [] transactions;
+    if(id)
+		delete [] id;
     
 }
 
 
 void CAccount::resizeLog(){
-    sizeOfLog *=2;
+	sizeOfLog *=2;
     // int **temp = new int *[sizeOfLog];
     transaction **temp = new transaction *[sizeOfLog];
     
@@ -305,31 +292,21 @@ void CAccount::resizeLog(){
 }
 
 void CAccount::pushToLog(int balanceChange, BetterString account, BetterString signature){
-    if (this->realSizeOfLog == this->sizeOfLog){
-        this->resizeLog();
-    }
+	if (this->realSizeOfLog == this->sizeOfLog){
+		this->resizeLog();
+	}
     
     
     
-    transactions[this->realSizeOfLog] = new  transaction(balanceChange, account, signature);
+	transactions[this->realSizeOfLog] = new  transaction(balanceChange, account, signature);
     
-    realSizeOfLog++;
+	realSizeOfLog++;
 }
-
-
-
-
-
-
 
 
 class CBank
 {
 public:
-    // default constructor
-    
-    // destructor
-    // operator =
     CBank();
     bool NewAccount  (const char *accID, int initialBalance);
     bool Transaction (const char *debAccID, const char *credAccID, int amount, const char * signature);
@@ -337,30 +314,12 @@ public:
     bool addAccount ( CAccount * account);
     int SearchAccount(const char *id, int &place);
     void resizeBankAccounts();
-    
-    friend ostream& operator<<(ostream &out, const CBank & account){
-        cout << "-------------------- DEBUG --------------------" << endl;
-        int i = 0;
-        for(size_t i = 0; i < account.realSizeOfBankAccounts; i++){
-            cout << "Position in bankaccounts   " << i << endl;
-            cout << *account.bankAccounts[i];
-            i++;
-        }
-        
-        cout << "-------------------- END_DEBUG --------------------" << endl;
-        
-        return out;
-    }
-    
-    
-    CBank (const CBank & bank);
+    CBank (const CBank &bank);
     ~CBank();
-    
-    
+    CAccount & Account(const char * account);
     CBank& operator=(const CBank & bank){
         //        *this = CBank (bank);
         delete this;
-
         this->realSizeOfBankAccounts = bank.realSizeOfBankAccounts;
         this->sizeOfBankAccounts = bank.sizeOfBankAccounts;
         
@@ -373,8 +332,7 @@ public:
     }
     
     
-    CAccount & Account(const char * account);
-    // Account ( accID )
+    
 private:
     CAccount ** bankAccounts;
     unsigned int sizeOfBankAccounts;
@@ -383,13 +341,11 @@ private:
 };
 
 CBank::~CBank(){
+  	for(unsigned i = 0; i < sizeOfBankAccounts; i++) {
+  		delete bankAccounts[i];
+   	}
     
-    
-        for(unsigned i = 0; i < sizeOfBankAccounts; i++) {
-            delete bankAccounts[i];
-        }
-    
-        delete [] bankAccounts;
+    delete [] bankAccounts;
 }
 
 
@@ -400,17 +356,18 @@ CBank::CBank(const CBank & bank){
     
     bankAccounts = new CAccount *[sizeOfBankAccounts];
     
-    for(unsigned i = 0; i < realSizeOfBankAccounts; i++) {
-        bankAccounts[i] = new CAccount(*bank.bankAccounts[i]);
-    }
+	for(unsigned i = 0; i < realSizeOfBankAccounts; i++) {
+		bankAccounts[i] = new CAccount(*bank.bankAccounts[i]);
+	}
     
 }
 
 CAccount & CBank::Account(const char *account){
     int place;
     if ( !SearchAccount(account, place)) {
-           cout << "SHIT ! " << endl;
-           throw exception();
+        cout << "SHIT ! " << endl;
+        throw exception();
+        
     }
     
     return *bankAccounts[place];
@@ -419,17 +376,17 @@ CAccount & CBank::Account(const char *account){
 
 
 CBank::CBank(){
-    sizeOfBankAccounts = 20;
-    realSizeOfBankAccounts = 0;
+	sizeOfBankAccounts = 20;
+	realSizeOfBankAccounts = 0;
     bankAccounts = new CAccount *[sizeOfBankAccounts];
     
-    for(unsigned i = 0; i < sizeOfBankAccounts; i++) {
-        bankAccounts[i] = NULL;
-    }
+	for(unsigned i = 0; i < sizeOfBankAccounts; i++) {
+		bankAccounts[i] = NULL;
+	}
 }
 
 void CBank::resizeBankAccounts(){
-    sizeOfBankAccounts *=2;
+	sizeOfBankAccounts *=2;
     CAccount **temp = new CAccount *[sizeOfBankAccounts];
     
     for (size_t i = 0; i < realSizeOfBankAccounts; i++) {
@@ -468,17 +425,18 @@ int CBank::SearchAccount(const char *id, int &place){
 
 
 bool CBank::NewAccount(const char *accID, int initialBalance){
-    int accPlace;
-    if (SearchAccount(accID, accPlace)) {
+	// TODO wtf accPlace
+	int accPlace;
+	if (SearchAccount(accID, accPlace)) {
         
-        cout << "FOUND " << bankAccounts[accPlace]->id << endl;
+        //cout << "FOUND " << bankAccounts[accPlace]->id << endl;
         if (strcmp(accID,bankAccounts[accPlace]->id )  == 0  ) {
-            cout << "Duplicity " << endl;
+          //  cout << "Duplicity " << endl;
             return false;
         }
         
         
-    } //else {
+	} //else {
     if (realSizeOfBankAccounts == sizeOfBankAccounts)
         resizeBankAccounts();
     
@@ -499,64 +457,67 @@ bool CBank::NewAccount(const char *accID, int initialBalance){
 
 
 
+bool CBank::addAccount( CAccount * account){
+	// this -> bankAccounts -> add (account);
+	// this -> addAccount (account);
+	if (sizeOfBankAccounts <= realSizeOfBankAccounts)
+	{
+		//TODO Realoc
+	}
+    
+    // SORT
+    
+	bankAccounts [realSizeOfBankAccounts] = account;
+    
+	return true;
+}
 
 
 
 bool CBank::Transaction (const char *debAccID, const char *credAccID, int amount, const char * signature){
-    if (strcmp(debAccID, credAccID)  == 0) {
-        cout << "Accounts are same : " << debAccID << " and " << credAccID << endl;
-        return false;
-    }
-    int debAccPalce = -27;
-    int credAccPlace = -27;
+	if ( strcmp(debAccID, credAccID) == 0 ){
+		//cout << "Transaction on one account" << endl;
+		return false;
+	}
+	
+	int debAccPalce = -27;
+	int credAccPlace = -27;
     
-    if (!SearchAccount(debAccID, debAccPalce) || !SearchAccount(credAccID, credAccPlace)){
-            bool a = SearchAccount(debAccID, debAccPalce);
-            bool b = SearchAccount(credAccID, credAccPlace);
-            cout <<  debAccID << " = " << a << "  &&  " <<  credAccID << " = " << b<< endl;
-            
-            
-            
-            
-            return false;
-    }else{
+	if (!SearchAccount(debAccID, debAccPalce) || !SearchAccount(credAccID, credAccPlace)){
+		return false;
+	}else{
         
         BetterString crediAcc(credAccID);
         BetterString debitAcc(debAccID);
         BetterString sign(signature);
         
-        bankAccounts[debAccPalce]->pushToLog(amount * -1, crediAcc, sign);
-        bankAccounts[credAccPlace]->pushToLog(amount, debAccID, sign);
-    }
+        
+        
+        
+		bankAccounts[debAccPalce]->pushToLog(amount * -1, crediAcc, sign);
+		bankAccounts[credAccPlace]->pushToLog(amount, debAccID, sign);
+	}
     
-    return true;
+	return true;
 }
 
 bool CBank::TrimAccount (const char *accID){
-    int accPlace;
-    if (!SearchAccount(accID, accPlace)){
-        return false;
-    }else{
+	int accPlace;
+	if (!SearchAccount(accID, accPlace)){
+		return false;
+	}else{
         
         int initialBalance = 0 ;
         for (unsigned i = 0; i < bankAccounts[accPlace]->realSizeOfLog; i++) {
             initialBalance += bankAccounts[accPlace]->transactions[i]->value;
         }
-
         const char * id = bankAccounts[accPlace]->id;
-        bankAccounts[accPlace] = new CAccount(id, initialBalance);
-        delete bankAccounts[accPlace];
-    }
+		delete bankAccounts[accPlace];
+		bankAccounts[accPlace] = new CAccount(id, initialBalance);
+	}
     
-    return true;
+	return true;
 }
-
-
-
-
-
-
-
 
 
 #ifndef __PROGTEST__
@@ -567,7 +528,6 @@ int main(){
     char accCpy[100], debCpy[100], credCpy[100], signCpy[100];
     CBank a;
     status = a . NewAccount ( "123456", 1000 );
-    cout << a;
     // status = true
     assert(status == true);
     status = a . NewAccount ( "987654", -500 );
@@ -749,11 +709,11 @@ int main(){
     // status = false
     assert(status == false);
     
-        balance = e . Account ( "666" ). Balance ( );
+      //  balance = e . Account ( "666" ). Balance ( );
         // exception thrown
 
 
-        cout << e . Account ( "666" );
+      //  cout << e . Account ( "666" );
         // exception thrown
 
 
@@ -915,5 +875,4 @@ int main(){
 
     return 0;
 }
-
 #endif //__PROGTEST__
