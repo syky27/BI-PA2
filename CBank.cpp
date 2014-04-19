@@ -1,20 +1,30 @@
 #ifndef __PROGTEST__
+
+
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <assert.h>
-using namespace std;
-#endif /* __PROGTEST__ */
+#include <limits.h>
+#include <string>
+#include <vector>
+#include <algorithm>
 
+
+
+
+using namespace std;
+
+
+#endif // __PROGTEST__
 
 
 class BetterString
 {
 private:
 	char*	data;
-    int     length;
-
+  int     length;
 public:
 	BetterString();
     BetterString(const char* cString);
@@ -23,10 +33,7 @@ public:
     BetterString operator=(const BetterString& s);
     BetterString operator=(const char* cString);
     void put();
-
-
     friend ostream& operator<<(ostream& os, const BetterString& s);
-
 private:
 	void copy(const BetterString& s);
 };
@@ -54,13 +61,15 @@ BetterString::BetterString(const char* cString)
 
 BetterString::~BetterString()
 {
-	delete [] data;
+	if (data != NULL) delete [] data;
 	data = NULL;
 	length = 0;
 }
 
 BetterString::BetterString(const BetterString& s)
 {
+	data = NULL;
+	length = 0;
 	copy(s);
 }
 
@@ -187,27 +196,35 @@ public:
 	unsigned int realSizeOfLog;
 };
 
-CAccount::CAccount(CAccount & account){
-    //this->id = account.id;
+CAccount::CAccount(CAccount & account)
+{
+	id = NULL;
+	size_t len = strlen ( account.id );
+	this->id = new char[len + 1];
 
-    size_t len = strlen ( account.id );
-    this->id = new char[len + 1];
-
-    strncpy ( this->id, account.id, len );
-    this->id[len] = '\0';
-
-
-
-    this-> sizeOfLog = account.sizeOfLog;
-    this->realSizeOfLog = account.realSizeOfLog;
-    transactions = new transaction * [sizeOfLog];
-	for(unsigned i = 0; i < realSizeOfLog; i++) {
-		transactions[i] = new transaction(*account.transactions[i]);
+	if (id)
+	{
+		strncpy (id, account.id, len);
+		id[len] = '\0';
 	}
 
-
+	sizeOfLog = account.sizeOfLog;
+	realSizeOfLog = account.realSizeOfLog;
+	transactions = new transaction * [sizeOfLog];
+	unsigned i(0);
+	for (i = 0; i < realSizeOfLog; i++)
+	{
+		transactions[i] = new transaction(*account.transactions[i]);
+	}
+	for (; i < sizeOfLog; i++)
+	{
+		transactions[i] = NULL;
+	}
 }
-CAccount::CAccount(){
+
+CAccount::CAccount()
+{
+	id = NULL;
 	sizeOfLog = 20;
 	realSizeOfLog = 0;
 
@@ -218,7 +235,9 @@ CAccount::CAccount(){
 	}
 }
 
-CAccount::CAccount(const char * accID, int initialBalance){
+CAccount::CAccount(const char * accID, int initialBalance)
+{
+	id = NULL;
     size_t len = strlen ( accID );
     this->id = new char[len + 1];
     strncpy ( this->id, accID, len );
@@ -235,18 +254,19 @@ CAccount::CAccount(const char * accID, int initialBalance){
 	pushToLog(initialBalance, "x", "x");
 }
 
-CAccount::~CAccount(){
-        delete [] id;
-
-    	for(unsigned i = 0; i < sizeOfLog; i++) {
-    		delete transactions[i];
-    	}
-
-        delete [] transactions;
-
-
-
-
+CAccount::~CAccount()
+{
+	if (id) delete [] id;
+	for(unsigned i = 0; i < sizeOfLog; i++)
+	{
+		if (transactions[i])
+		{
+			transaction *p(transactions[i]);
+			delete p;
+		}
+	}
+	delete [] transactions;
+	id = NULL;
 }
 
 int CAccount::Balance(){
@@ -316,25 +336,17 @@ public:
     CAccount & Account(const char * account);
 
 
-    CBank& operator=(const CBank & bank){
-
-
-
-            for(unsigned i = 0; i < this->sizeOfBankAccounts; i++){
-                delete bankAccounts[i];
-            }
-
-            delete [] bankAccounts;
-
-        this->realSizeOfBankAccounts = bank.realSizeOfBankAccounts;
-        this->sizeOfBankAccounts = bank.sizeOfBankAccounts;
-
-        bankAccounts = new CAccount *[sizeOfBankAccounts];
-
-        for(unsigned i = 0; i < realSizeOfBankAccounts; i++) {
-            bankAccounts[i] = new CAccount(*bank.bankAccounts[i]);
-        }
-        return *this;
+    CBank& operator=(const CBank & bank)
+		{
+			for(unsigned i = 0; i < this->sizeOfBankAccounts; i++) delete bankAccounts[i];
+      delete [] bankAccounts;
+      realSizeOfBankAccounts = bank.realSizeOfBankAccounts;
+      sizeOfBankAccounts = bank.sizeOfBankAccounts;
+      bankAccounts = new CAccount *[sizeOfBankAccounts];
+			unsigned i(0);
+			for(i = 0; i < realSizeOfBankAccounts; i++) bankAccounts[i] = new CAccount(*bank.bankAccounts[i]);
+			for(; i < sizeOfBankAccounts; i++) bankAccounts[i] = NULL;
+      return *this;
     }
 
 
@@ -344,11 +356,13 @@ private:
     unsigned int sizeOfBankAccounts;
     unsigned int realSizeOfBankAccounts;
 
+
 };
 
 CBank::~CBank(){
-  	for(unsigned i = 0; i < sizeOfBankAccounts; i++) {
-  	    delete bankAccounts[i];
+  	for(unsigned i = 0; i < sizeOfBankAccounts; i++)
+		{
+			if (bankAccounts[i]) delete bankAccounts[i];
    	}
 
     delete [] bankAccounts;
@@ -356,16 +370,20 @@ CBank::~CBank(){
 
 
 
-CBank::CBank(const CBank & bank){
-    this->realSizeOfBankAccounts = bank.realSizeOfBankAccounts;
-    this->sizeOfBankAccounts = bank.sizeOfBankAccounts;
-
-    bankAccounts = new CAccount *[sizeOfBankAccounts];
-
-	for(unsigned i = 0; i < realSizeOfBankAccounts; i++) {
+CBank::CBank(const CBank & bank)
+{
+	realSizeOfBankAccounts = bank.realSizeOfBankAccounts;
+	sizeOfBankAccounts = bank.sizeOfBankAccounts;
+	bankAccounts = new CAccount *[sizeOfBankAccounts];
+	unsigned i(0);
+	for(i = 0; i < realSizeOfBankAccounts; i++)
+	{
 		bankAccounts[i] = new CAccount(*bank.bankAccounts[i]);
 	}
-
+	for(; i < sizeOfBankAccounts; i++)
+	{
+		bankAccounts[i] = NULL;
+	}
 }
 
 CAccount & CBank::Account(const char *account){
@@ -381,12 +399,13 @@ CAccount & CBank::Account(const char *account){
 }
 
 
-CBank::CBank(){
+CBank::CBank()
+{
 	sizeOfBankAccounts = 20;
 	realSizeOfBankAccounts = 0;
-    bankAccounts = new CAccount *[sizeOfBankAccounts];
-
-	for(unsigned i = 0; i < sizeOfBankAccounts; i++) {
+	bankAccounts = new CAccount *[sizeOfBankAccounts];
+	for(unsigned i = 0; i < sizeOfBankAccounts; i++)
+	{
 		bankAccounts[i] = NULL;
 	}
 }
@@ -520,11 +539,30 @@ bool CBank::TrimAccount (const char *accID){
 
 
 #ifndef __PROGTEST__
-int main(){
 
+std::string random_string( size_t length )
+{
+    auto randchar = []() -> char
+    {
+        const char charset[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+        const size_t max_index = (sizeof(charset) - 1);
+        return charset[ rand() % max_index ];
+    };
+    std::string str(length,0);
+    std::generate_n( str.begin(), length, randchar );
+    return str;
+}
+
+
+int main()
+{
     bool status;
     int  balance;
     char accCpy[100], debCpy[100], credCpy[100], signCpy[100];
+
     CBank a;
     status = a . NewAccount ( "123456", 1000 );
     // status = true
@@ -687,7 +725,6 @@ int main(){
      = 5703
      ---8<---8<---8<---8<---8<---8<---8<---
      */
-
     CBank e;
     status = e . NewAccount ( "123456", 1000 );
     // status = true
@@ -712,7 +749,7 @@ int main(){
         // exception thrown
 
 
-      //  cout << e . Account ( "666" );
+        //cout << e . Account ( "666" );
         // exception thrown
 
 
@@ -721,6 +758,8 @@ int main(){
     status = e . TrimAccount ( "666" );
     // status = false
     assert(status == false);
+
+
 
     CBank g;
     status = g . NewAccount ( "123456", 1000 );
@@ -743,6 +782,7 @@ int main(){
     assert(status == true);
 
     CBank h ( g );
+
     status = g . Transaction ( "111111", "987654", 123, "asdf78wrnASDT3W" );
     // status = true
     assert(status == true);
@@ -816,6 +856,7 @@ int main(){
      ---8<---8<---8<---8<---8<---8<---8<---
      */
 
+
     CBank i;
     CBank j;
     status = i . NewAccount ( "123456", 1000 );
@@ -872,11 +913,77 @@ int main(){
      ---8<---8<---8<---8<---8<---8<---8<---
      */
 
-    return 0;
+
+
+
+
+    //tester
+
+/*
+    CBank x;
+
+
+
+        vector<string> accounts;
+
+        for(int i = 0; i < 10000; i++){
+            string account_name = random_string(20);
+            int random_number;
+            accounts.push_back(account_name);
+
+            x.NewAccount(account_name.c_str(), random_number);
+            cout << i << " 1. " << endl;
+
+        }
+
+
+
+        int z;
+        for(unsigned long long  i = 0; i < 10000 - 1; i++){
+            z = rand()%10000;
+            string account_name = accounts.at(z);
+            z = rand()%10000;
+            string account_name2 = accounts.at(z);
+            string signature = random_string(16);
+
+            x.Transaction(account_name.c_str(), account_name2.c_str(), (int)z, signature.c_str());
+
+            cout << i << endl;
+
+        }
+
+        for(unsigned long long  i = 0; i < 10000 - 1; i++){
+            z = rand()%10000;
+            string account_name = accounts.at(z);
+
+
+
+            cout << x.Account(account_name.c_str()) << endl;
+
+        }
+
+
+
+
+
+
+        for(unsigned long long  i = 0; i < 10000 - 1; i++){
+            z = rand()%10000;
+            string account_name = accounts.at(z);
+           x.TrimAccount(account_name.c_str());
+           cout << "trimm" << endl;
+
+        }
+
+
+
+*/
+
+
+	return 0;
 }
 
 #endif //__PROGTEST__
-
 
 
 
