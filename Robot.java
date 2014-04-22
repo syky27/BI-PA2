@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class ServerThread extends Thread {
 
@@ -13,6 +16,7 @@ class ServerThread extends Thread {
     PrintWriter out = null;
     InputStream in = null;
     String clientName;
+//    WriteLogToFile log;
 
     ArrayList<String> logArray;
 
@@ -21,6 +25,7 @@ class ServerThread extends Thread {
         this.socket = socket;
         this.out = new PrintWriter(socket.getOutputStream());
         this.in = new DataInputStream(socket.getInputStream());
+//        this.log = new WriteLogToFile(clientName);
 
     }
 
@@ -165,7 +170,9 @@ class ServerThread extends Thread {
                 
             case "300":
                 out.write("300 BAD CHECKSUM\r\n");
-                out.close();
+                out.flush();
+                //out.close();
+                break;
         }
     }
 
@@ -214,11 +221,13 @@ class ServerThread extends Thread {
                 }
 
                 sumMessage += currentInput;
+                 this.clientName = message;
             }
         } catch (Exception e) {
             return -1;
         }
 
+       
     }
 
     @Override
@@ -254,7 +263,7 @@ class ServerThread extends Thread {
                  if (e.getMessage().equals("NullPointerException")) {
                      System.out.println("NULL POINTER EXCEPTION YOU ARE V PICI");
                  }
-                    System.out.println("Fucked Up SHIT");
+                    System.out.println("Fucked Up SHIT " + e.getMessage());
                     passToRobot("502");
               } 
              
@@ -355,13 +364,15 @@ class ServerThread extends Thread {
         
         int lb = lastBullshit.readInt();
         
-        if (checksum != lb) {
+        if (checksum  != lb) {
             passToRobot("300");
-            return false;
+            System.out.println("BAD CHECKSUM" + this.getClientsName());
+            
+            return true;
         }
         
         
-        if(dataOfPhoto.size() != checksum){
+        if(dataOfPhoto.size()  != bytes /*checksum*/){
             passToRobot("501");
             return false;
         }
@@ -459,6 +470,31 @@ class TemplateServer {
         server.start();
     }
 }
+
+//class WriteLogToFile {
+//    FileHandler fileHandler;
+//    Logger logger;
+//    
+//    public WriteLogToFile(String s) throws IOException{
+//        this.fileHandler = new FileHandler("info.log", true);        
+//        logger.addHandler(fileHandler);
+//        logger = Logger.getLogger(WriteLogToFile.class.getName());
+//        this.fileHandler = new FileHandler(s + "_info.log", true);
+//    }
+//    
+//    public void writeToLog(String s){
+//        if (logger.isLoggable(Level.INFO)) {
+//            logger.info(s);
+//        }
+//
+//
+//    }
+//
+//
+//}
+
+
+
 
 public class Robot {
 
