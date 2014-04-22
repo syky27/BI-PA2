@@ -1,0 +1,125 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AFP	CBank.cpp	/^	AFP(){$/;"	f	class:AFP
+AFP	CBank.cpp	/^	AFP(const AFP<Typ>& RSmartArray){$/;"	f	class:AFP
+AFP	CBank.cpp	/^	AFP(int count){$/;"	f	class:AFP
+AFP	CBank.cpp	/^class AFP {$/;"	c	file:
+Account	CBankv3.cpp	/^CAccount & CBank::Account(const char *account){$/;"	f	class:CBank
+Balance	CBankv3.cpp	/^int CAccount::Balance(){$/;"	f	class:CAccount
+BetterString	CBankv3.cpp	/^BetterString::BetterString()$/;"	f	class:BetterString
+BetterString	CBankv3.cpp	/^BetterString::BetterString(const BetterString& s)$/;"	f	class:BetterString
+BetterString	CBankv3.cpp	/^BetterString::BetterString(const char* cString)$/;"	f	class:BetterString
+BetterString	CBankv3.cpp	/^class BetterString$/;"	c	file:
+CAccount	BetterCBank.cpp	/^CAccount::CAccount(){$/;"	f	class:CAccount
+CAccount	BetterCBank.cpp	/^CAccount::CAccount(const char * accID, int initialBalance){$/;"	f	class:CAccount
+CAccount	BetterCBank.cpp	/^class CAccount$/;"	c	file:
+CAccount	CBank.cpp	/^CAccount::CAccount(){$/;"	f	class:CAccount
+CAccount	CBank.cpp	/^CAccount::CAccount(const char * accID, int initialBalance){$/;"	f	class:CAccount
+CAccount	CBank.cpp	/^class CAccount$/;"	c	file:
+CAccount	CBankv3.cpp	/^CAccount::CAccount(){$/;"	f	class:CAccount
+CAccount	CBankv3.cpp	/^CAccount::CAccount(CAccount & account){$/;"	f	class:CAccount
+CAccount	CBankv3.cpp	/^CAccount::CAccount(const char * accID, int initialBalance){$/;"	f	class:CAccount
+CAccount	CBankv3.cpp	/^class CAccount$/;"	c	file:
+CBank	BetterCBank.cpp	/^CBank::CBank(){$/;"	f	class:CBank
+CBank	BetterCBank.cpp	/^class CBank$/;"	c	file:
+CBank	CBank.cpp	/^CBank::CBank(){$/;"	f	class:CBank
+CBank	CBank.cpp	/^class CBank$/;"	c	file:
+CBank	CBankv3.cpp	/^CBank::CBank(){$/;"	f	class:CBank
+CBank	CBankv3.cpp	/^CBank::CBank(const CBank & bank){$/;"	f	class:CBank
+CBank	CBankv3.cpp	/^class CBank$/;"	c	file:
+MyString	BetterCBank.cpp	/^MyString::MyString()$/;"	f	class:MyString
+MyString	BetterCBank.cpp	/^MyString::MyString(const MyString& s)$/;"	f	class:MyString
+MyString	BetterCBank.cpp	/^MyString::MyString(const char* cString)$/;"	f	class:MyString
+MyString	BetterCBank.cpp	/^class MyString$/;"	c	file:
+NewAccount	BetterCBank.cpp	/^bool CBank::NewAccount(const char *accID, int initialBalance){$/;"	f	class:CBank
+NewAccount	CBank.cpp	/^bool CBank::NewAccount(const char *accID, int initialBalance){$/;"	f	class:CBank
+NewAccount	CBankv3.cpp	/^bool CBank::NewAccount(const char *accID, int initialBalance){$/;"	f	class:CBank
+SearchAccount	BetterCBank.cpp	/^int CBank::SearchAccount(const char &id, int &place){$/;"	f	class:CBank
+SearchAccount	CBankv3.cpp	/^int CBank::SearchAccount(const char *id, int &place){$/;"	f	class:CBank
+Transaction	BetterCBank.cpp	/^bool CBank::Transaction (const char *debAccID, const char *credAccID, int amount, const char * signature){$/;"	f	class:CBank
+Transaction	CBank.cpp	/^bool CBank::Transaction (const char *debAccID, const char *credAccID, int amount, const char * signature){$/;"	f	class:CBank
+Transaction	CBankv3.cpp	/^bool CBank::Transaction (const char *debAccID, const char *credAccID, int amount, const char * signature){$/;"	f	class:CBank
+TrimAccount	BetterCBank.cpp	/^bool CBank::TrimAccount (const char *accID){$/;"	f	class:CBank
+TrimAccount	CBank.cpp	/^bool CBank::TrimAccount (const char *accID){$/;"	f	class:CBank
+TrimAccount	CBankv3.cpp	/^bool CBank::TrimAccount (const char *accID){$/;"	f	class:CBank
+accID	CBank.cpp	/^    const char *accID;$/;"	m	class:CAccount	file:
+accounts	CBank.cpp	/^    AFP<CAccount> accounts;$/;"	m	class:CBank	file:
+add	CBank.cpp	/^	void add(Typ new_element){$/;"	f	class:AFP
+addAccount	BetterCBank.cpp	/^bool CBank::addAccount(const CAccount account){$/;"	f	class:CBank
+addAccount	CBank.cpp	/^bool CBank::addAccount(const CAccount account){$/;"	f	class:CBank
+array	CBank.cpp	/^	Typ * array;$/;"	m	class:AFP	file:
+balance	BetterCBank.cpp	/^	int balance;$/;"	m	class:CAccount	file:
+balance	CBank.cpp	/^    int balance;$/;"	m	class:CAccount	file:
+balance	CBankv3.cpp	/^    int balance;$/;"	m	class:CAccount	file:
+bankAccounts	BetterCBank.cpp	/^    CAccount ** bankAccounts;$/;"	m	class:CBank	file:
+bankAccounts	CBankv3.cpp	/^    CAccount ** bankAccounts;$/;"	m	class:CBank	file:
+copy	BetterCBank.cpp	/^void MyString::copy(const MyString& s)$/;"	f	class:MyString
+copy	CBankv3.cpp	/^void BetterString::copy(const BetterString& s)$/;"	f	class:BetterString
+data	CBankv3.cpp	/^    char*   data;$/;"	m	class:BetterString	file:
+extend	CBank.cpp	/^	void extend(){$/;"	f	class:AFP
+from	CBankv3.cpp	/^    BetterString from;$/;"	m	struct:transaction	file:
+id	BetterCBank.cpp	/^	const char id;$/;"	m	class:CAccount	file:
+id	CBankv3.cpp	/^    char * id;$/;"	m	class:CAccount	file:
+last_index	CBank.cpp	/^	int size, last_index;$/;"	m	class:AFP	file:
+length	BetterCBank.cpp	/^	int		length;	\/\/ length of the MyString$/;"	m	class:MyString	file:
+length	CBank.cpp	/^	int length() const{$/;"	f	class:AFP
+length	CBankv3.cpp	/^    int     length;$/;"	m	class:BetterString	file:
+log	BetterCBank.cpp	/^	int ** log;$/;"	m	class:CAccount	file:
+log	CBank.cpp	/^    int ** log;$/;"	m	class:CAccount	file:
+main	BetterCBank.cpp	/^ int main(){$/;"	f
+main	CBank.cpp	/^ int main(){$/;"	f
+main	CBankv3.cpp	/^int main(){$/;"	f
+newArray	CBank.cpp	/^	void newArray(int count){$/;"	f	class:AFP
+operator +	BetterCBank.cpp	/^MyString MyString::operator+(const MyString& s)$/;"	f	class:MyString
+operator +	BetterCBank.cpp	/^MyString MyString::operator+(const char* cString)$/;"	f	class:MyString
+operator +=	CBank.cpp	/^	AFP& operator+=(const Typ& new_element){$/;"	f	class:AFP
+operator <<	BetterCBank.cpp	/^ostream& operator<<(ostream& os, const MyString& s)$/;"	f
+operator <<	CBankv3.cpp	/^    friend ostream& operator<<(ostream &out, const CAccount & account){$/;"	f	class:CAccount
+operator <<	CBankv3.cpp	/^    friend ostream& operator<<(ostream &out, const CBank & account){$/;"	f	class:CBank
+operator <<	CBankv3.cpp	/^ostream& operator<<(ostream& os, const BetterString& s)$/;"	f
+operator =	BetterCBank.cpp	/^MyString MyString::operator=(const MyString& s)$/;"	f	class:MyString
+operator =	BetterCBank.cpp	/^MyString MyString::operator=(const char* cString)$/;"	f	class:MyString
+operator =	CBankv3.cpp	/^    CBank& operator=(const CBank & bank){$/;"	f	class:CBank
+operator =	CBankv3.cpp	/^BetterString BetterString::operator=(const BetterString& s)$/;"	f	class:BetterString
+operator =	CBankv3.cpp	/^BetterString BetterString::operator=(const char* cString)$/;"	f	class:BetterString
+operator ==	CBank.cpp	/^	bool operator==(const AFP &array2) const{$/;"	f	class:AFP
+operator []	CBank.cpp	/^	Typ& operator[](int i){$/;"	f	class:AFP
+pData	BetterCBank.cpp	/^	char*	pData;	\/\/ pointer to C-style represenation of the MyString$/;"	m	class:MyString	file:
+pushToLog	BetterCBank.cpp	/^void CAccount::pushToLog(int balanceChange){$/;"	f	class:CAccount
+pushToLog	CBankv3.cpp	/^void CAccount::pushToLog(int balanceChange, BetterString account, BetterString signature){$/;"	f	class:CAccount
+put	BetterCBank.cpp	/^void MyString::put()$/;"	f	class:MyString
+put	CBankv3.cpp	/^void BetterString::put()$/;"	f	class:BetterString
+realSizeOfBankAccounts	BetterCBank.cpp	/^    unsigned int realSizeOfBankAccounts;$/;"	m	class:CBank	file:
+realSizeOfBankAccounts	CBankv3.cpp	/^    unsigned int realSizeOfBankAccounts;$/;"	m	class:CBank	file:
+realSizeOfLog	BetterCBank.cpp	/^	unsigned int realSizeOfLog;$/;"	m	class:CAccount	file:
+realSizeOfLog	CBankv3.cpp	/^    unsigned int realSizeOfLog;$/;"	m	class:CAccount	file:
+resizeBankAccounts	BetterCBank.cpp	/^void CBank::resizeBankAccounts(){$/;"	f	class:CBank
+resizeBankAccounts	CBankv3.cpp	/^void CBank::resizeBankAccounts(){$/;"	f	class:CBank
+resizeLog	BetterCBank.cpp	/^void CAccount::resizeLog(){$/;"	f	class:CAccount
+resizeLog	CBankv3.cpp	/^void CAccount::resizeLog(){$/;"	f	class:CAccount
+reverse	BetterCBank.cpp	/^void MyString::reverse()$/;"	f	class:MyString
+set	CBank.cpp	/^	bool set(int i,Typ val){$/;"	f	class:AFP
+sign	CBankv3.cpp	/^    BetterString sign;$/;"	m	struct:transaction	file:
+size	CBank.cpp	/^	int size, last_index;$/;"	m	class:AFP	file:
+sizeOfBankAccounts	BetterCBank.cpp	/^    unsigned int sizeOfBankAccounts;$/;"	m	class:CBank	file:
+sizeOfBankAccounts	CBankv3.cpp	/^    unsigned int sizeOfBankAccounts;$/;"	m	class:CBank	file:
+sizeOfLog	BetterCBank.cpp	/^        unsigned int sizeOfLog;$/;"	m	class:CAccount	file:
+sizeOfLog	CBankv3.cpp	/^    unsigned int sizeOfLog;$/;"	m	class:CAccount	file:
+substr	BetterCBank.cpp	/^MyString MyString::substr(const int pos)$/;"	f	class:MyString
+substr	BetterCBank.cpp	/^MyString MyString::substr(const int pos, const int len)$/;"	f	class:MyString
+transaction	CBankv3.cpp	/^    transaction(int Xvalue, BetterString Xfrom, BetterString Xsign){$/;"	f	struct:transaction
+transaction	CBankv3.cpp	/^    transaction(int Xvalue, const char * Xfrom, const char * Xsign){$/;"	f	struct:transaction
+transaction	CBankv3.cpp	/^    transaction(transaction & trans){$/;"	f	struct:transaction
+transaction	CBankv3.cpp	/^struct transaction$/;"	s	file:
+transactions	CBankv3.cpp	/^    transaction ** transactions;$/;"	m	class:CAccount	file:
+value	CBankv3.cpp	/^    int value;$/;"	m	struct:transaction	file:
+~AFP	CBank.cpp	/^	~AFP(){$/;"	f	class:AFP
+~BetterString	CBankv3.cpp	/^BetterString::~BetterString()$/;"	f	class:BetterString
+~CAccount	CBank.cpp	/^CAccount::~CAccount() {$/;"	f	class:CAccount
+~CAccount	CBankv3.cpp	/^CAccount::~CAccount(){$/;"	f	class:CAccount
+~CBank	CBankv3.cpp	/^CBank::~CBank(){$/;"	f	class:CBank
+~MyString	BetterCBank.cpp	/^MyString::~MyString()$/;"	f	class:MyString
