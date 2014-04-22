@@ -1,0 +1,5 @@
+*
+/Robot/nbproject/private/
+!*.java
+!*.cpp
+!*.h
